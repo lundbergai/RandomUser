@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllers();
 
-// Add DbContext with In-Memory database
 builder.Services.AddDbContext<RandomUserDbContext>(options =>
     options.UseSqlite("Data Source=randomuser.db"));
 
