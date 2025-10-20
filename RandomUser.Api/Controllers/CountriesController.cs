@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Queries.Countries;
-using RandomUser.Infrastructure;
 
 namespace RandomUser.Api.Controllers;
 
@@ -9,7 +7,6 @@ namespace RandomUser.Api.Controllers;
 [Route("api/[controller]")]
 public class CountriesController : ControllerBase
 {
-    private readonly RandomUserDbContext _context;
     private readonly GetCountriesQuery _query;
 
     public CountriesController(GetCountriesQuery query)
