@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RandomUser.Infrastructure;
+using RandomUser.Infrastructure.Persistence;
 
 namespace RandomUser.Application.Queries.Countries;
 
-public class GetCountriesQuery
+public class GetCountriesQuery : IGetCountriesQuery
 {
-    private readonly RandomUserDbContext _context;
+    private readonly IRandomUserDbContext _context;
 
-    public GetCountriesQuery(RandomUserDbContext context)
+    public GetCountriesQuery(IRandomUserDbContext context)
     {
         _context = context;
     }

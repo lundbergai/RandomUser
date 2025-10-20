@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Queries.Countries;
 using RandomUser.Infrastructure.Persistence.Seed;
+using RandomUser.Infrastructure.Persistence;
 using RandomUser.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<RandomUserDbContext>(options =>
     options.UseSqlite("Data Source=randomuser.db"));
 
-builder.Services.AddScoped<GetCountriesQuery>();
+builder.Services.AddScoped<IRandomUserDbContext>(provider =>
+    provider.GetRequiredService<RandomUserDbContext>());
+
+builder.Services.AddScoped<IGetCountriesQuery, GetCountriesQuery>();
 
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
