@@ -10,25 +10,18 @@ namespace RandomUser.Api.Controllers;
 public class CountriesController : ControllerBase
 {
     private readonly RandomUserDbContext _context;
+    private readonly GetCountriesQuery _query;
 
-    public CountriesController(RandomUserDbContext context)
+    public CountriesController(GetCountriesQuery query)
     {
-        _context = context;
+        _query = query;
     }
 
     [HttpGet]
     public async Task<ActionResult<List<CountryDto>>> GetCountries()
     {
-        return await _context.Users
-            .Where(u => u.Location != null)
-            .GroupBy(u => u.Location.Country)
-            .Select(g => new CountryDto
-            {
-                Country = g.Key,
-                UserCount = g.Count()
-            })
-            .OrderByDescending(c => c.UserCount)
-            .ToListAsync();
+        var countries = await _query.ExecuteAsync();
+        
+        return Ok(countries);
     }
-
 }

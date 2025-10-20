@@ -10,4 +10,8 @@
       <Folder Include="Commands\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\RandomUser.Infrastructure\RandomUser.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
