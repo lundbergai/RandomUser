@@ -7,9 +7,9 @@ namespace RandomUser.Infrastructure.Persistence.Seed;
 
 public class Seed
 {
-    public static async Task SeedDataAsync(RandomUserDbContext context)
+    public static async Task SeedDataAsync(IRandomUserDbContext dbContext)
     {
-        if (!await context.Users.AnyAsync())
+        if (!await dbContext.Users.AnyAsync())
         {
             // https://randomuser.me/api/?results=50&inc=name,location,phone
             var assemblyLocation = Assembly.GetExecutingAssembly().Location;
@@ -28,8 +28,8 @@ public class Seed
 
             if (data?.Results != null)
             {
-                await context.Users.AddRangeAsync(data.Results); 
-                await context.SaveChangesAsync();
+                await dbContext.Users.AddRangeAsync(data.Results); 
+                await dbContext.SaveChangesAsync();
             }
         }
     }
