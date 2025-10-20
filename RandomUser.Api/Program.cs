@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using RandomUser.Api.Seed;
+using RandomUser.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Add DbContext with In-Memory database
-builder.Services.AddDbContext<YourDbContext>(options =>
+builder.Services.AddDbContext<RandomUserDbContext>(options =>
     options.UseInMemoryDatabase("RandomUserDb"));
 
 // Add Swagger
@@ -18,8 +20,8 @@ var app = builder.Build();
 // Seed data from JSON file
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<YourDbContext>();
-    await SeedData(dbContext);
+    var dbContext = scope.ServiceProvider.GetRequiredService<RandomUserDbContext>();
+    await Seed.SeedDataAsync(dbContext);
 }
 
 // Configure the HTTP request pipeline
@@ -44,14 +46,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-async Task SeedData(YourDbContext context)
-{
-    if (!await context.YourEntity.AnyAsync())
-    {
-        var json = await File.ReadAllTextAsync("seeddata.json");
-        var data = System.Text.Json.JsonSerializer.Deserialize<List<YourEntity>>(json);
-        await context.YourEntity.AddRangeAsync(data);
-        await context.SaveChangesAsync();
-    }
-}
