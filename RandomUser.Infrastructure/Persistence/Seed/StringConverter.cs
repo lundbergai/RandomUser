@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RandomUser.Api.Seed;
+namespace RandomUser.Infrastructure.Persistence.Seed;
 
 public class StringConverter : JsonConverter<string>
 {

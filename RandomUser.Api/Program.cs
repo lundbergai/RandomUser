@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using RandomUser.Api.Seed;
+using RandomUser.Infrastructure.Persistence.Seed;
 using RandomUser.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);

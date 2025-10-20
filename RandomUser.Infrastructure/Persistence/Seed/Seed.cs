@@ -1,9 +1,9 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using RandomUser.Domain.Entities;
-using RandomUser.Infrastructure;
+using System.Reflection;
 
-namespace RandomUser.Api.Seed;
+namespace RandomUser.Infrastructure.Persistence.Seed;
 
 public class Seed
 {
@@ -12,7 +12,11 @@ public class Seed
         if (!await context.Users.AnyAsync())
         {
             // https://randomuser.me/api/?results=50&inc=name,location,phone
-            var json = await File.ReadAllTextAsync(Path.Combine("Seed", "randomUser.json"));
+            var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            var assemblyDirectory = Path.GetDirectoryName(assemblyLocation);
+            var jsonFilePath = Path.Combine(assemblyDirectory, "Persistence", "Seed", "randomUser.json");
+            
+            var json = await File.ReadAllTextAsync(jsonFilePath);
             
             var options = new JsonSerializerOptions
             {
