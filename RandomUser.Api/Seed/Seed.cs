@@ -16,10 +16,11 @@ public class Seed
             
             var options = new JsonSerializerOptions
             {
+                Converters = { new StringConverter() },
                 PropertyNameCaseInsensitive = true
             };
             
-            var data = JsonSerializer.Deserialize<UserResponse>(json);
+            var data = JsonSerializer.Deserialize<UserResponse>(json, options);
 
             if (data?.Results != null)
             {
