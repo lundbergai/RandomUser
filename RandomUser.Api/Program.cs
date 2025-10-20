@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 
 // Add DbContext with In-Memory database
 builder.Services.AddDbContext<RandomUserDbContext>(options =>
-    options.UseInMemoryDatabase("RandomUserDb"));
+    options.UseSqlite("Data Source=randomuser.db"));
 
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -21,6 +21,8 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<RandomUserDbContext>();
+    await dbContext.Database.EnsureDeletedAsync();
+    await dbContext.Database.EnsureCreatedAsync();
     await Seed.SeedDataAsync(dbContext);
 }
 
