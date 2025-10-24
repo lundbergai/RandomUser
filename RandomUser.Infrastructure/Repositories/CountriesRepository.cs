@@ -13,7 +13,7 @@ public class CountriesRepository : ICountriesRepository
 		_context = context;
 	}
 
-	public IQueryable<User> GetUsersQuery()
+	public IQueryable<User> GetUsersWithLocations()
 	{
 		return _context.Users;
 	}

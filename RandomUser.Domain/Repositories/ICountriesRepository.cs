@@ -4,5 +4,5 @@ namespace RandomUser.Domain.Repositories;
 
 public interface ICountriesRepository
 {
-	IQueryable<User> GetUsersQuery();
+	IQueryable<User> GetUsersWithLocations();
 }

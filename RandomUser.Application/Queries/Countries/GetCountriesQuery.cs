@@ -14,7 +14,7 @@ public class GetCountriesQuery : IGetCountriesQuery
 
     public async Task<List<CountryDto>> ExecuteAsync()
     {
-        return await _repository.GetUsersQuery()
+        return await _repository.GetUsersWithLocations()
             .Where(u => u.Location != null)
             .GroupBy(u => u.Location.Country)
             .Select(g => new CountryDto
