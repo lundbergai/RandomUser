@@ -15,7 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\" />
+      <None Include="Seed\randomUser.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

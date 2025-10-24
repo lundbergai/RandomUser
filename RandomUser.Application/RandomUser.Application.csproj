@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\" />
+      <ProjectReference Include="..\RandomUser.Infrastructure\RandomUser.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

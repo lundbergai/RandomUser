@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Queries.Countries;
-using RandomUser.Infrastructure;
 
 namespace RandomUser.Api.Controllers;
 
@@ -9,26 +7,18 @@ namespace RandomUser.Api.Controllers;
 [Route("api/[controller]")]
 public class CountriesController : ControllerBase
 {
-    private readonly RandomUserDbContext _context;
+    private readonly IGetCountriesQuery _query;
 
-    public CountriesController(RandomUserDbContext context)
+    public CountriesController(IGetCountriesQuery query)
     {
-        _context = context;
+        _query = query;
     }
 
     [HttpGet]
     public async Task<ActionResult<List<CountryDto>>> GetCountries()
     {
-        return await _context.Users
-            .Where(u => u.Location != null)
-            .GroupBy(u => u.Location.Country)
-            .Select(g => new CountryDto
-            {
-                Country = g.Key,
-                UserCount = g.Count()
-            })
-            .OrderByDescending(c => c.UserCount)
-            .ToListAsync();
+        var countries = await _query.ExecuteAsync();
+        
+        return Ok(countries);
     }
-
 }
