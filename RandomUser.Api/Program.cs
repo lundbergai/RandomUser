@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Commands;
 using RandomUser.Application.Queries.Countries;
+using RandomUser.Domain.Repositories;
 using RandomUser.Infrastructure.Persistence;
 using RandomUser.Infrastructure;
 using RandomUser.Infrastructure.Services;

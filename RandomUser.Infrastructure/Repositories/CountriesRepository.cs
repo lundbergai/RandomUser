@@ -1,4 +1,5 @@
 using RandomUser.Domain.Entities;
+using RandomUser.Domain.Repositories;
 using RandomUser.Infrastructure.Persistence;
 
 namespace RandomUser.Infrastructure.Repositories;

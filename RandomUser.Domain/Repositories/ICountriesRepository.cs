@@ -1,6 +1,6 @@
 using RandomUser.Domain.Entities;
 
-namespace RandomUser.Infrastructure.Repositories;
+namespace RandomUser.Domain.Repositories;
 
 public interface ICountriesRepository
 {
