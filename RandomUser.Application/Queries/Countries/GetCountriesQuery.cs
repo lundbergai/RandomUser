@@ -1,20 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RandomUser.Infrastructure.Persistence;
+using RandomUser.Domain.Repositories;
 
 namespace RandomUser.Application.Queries.Countries;
 
 public class GetCountriesQuery : IGetCountriesQuery
 {
-    private readonly IRandomUserDbContext _context;
+    private readonly ICountriesRepository _repository;
 
-    public GetCountriesQuery(IRandomUserDbContext context)
+    public GetCountriesQuery(ICountriesRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
-    
+
     public async Task<List<CountryDto>> ExecuteAsync()
     {
-        return await _context.Users
+        return await _repository.GetUsersWithLocations()
             .Where(u => u.Location != null)
             .GroupBy(u => u.Location.Country)
             .Select(g => new CountryDto

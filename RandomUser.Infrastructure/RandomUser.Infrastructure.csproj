@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="Persistence\Seed\randomUser.json">
+      <None Include="Seed\randomUser.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

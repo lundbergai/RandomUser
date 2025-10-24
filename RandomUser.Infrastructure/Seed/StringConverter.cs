@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RandomUser.Infrastructure.Persistence.Seed;
+namespace RandomUser.Infrastructure.Seed;
 
 public class StringConverter : JsonConverter<string>
 {
@@ -17,10 +17,10 @@ public class StringConverter : JsonConverter<string>
         {
             return reader.GetString();
         }
-        
+
         throw new System.Text.Json.JsonException();
     }
-    
+
     public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
     {
         writer.WriteStringValue(value);

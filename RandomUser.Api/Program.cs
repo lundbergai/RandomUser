@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Commands;
 using RandomUser.Application.Queries.Countries;
-using RandomUser.Infrastructure.Persistence.Seed;
+using RandomUser.Domain.Repositories;
 using RandomUser.Infrastructure.Persistence;
 using RandomUser.Infrastructure;
 using RandomUser.Infrastructure.Services;
+using RandomUser.Infrastructure.Repositories;
+using RandomUser.Infrastructure.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,9 @@ builder.Services.AddDbContext<RandomUserDbContext>(options =>
 
 builder.Services.AddScoped<IRandomUserDbContext>(provider =>
     provider.GetRequiredService<RandomUserDbContext>());
+
+// Repositories
+builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 
 // Commands
 builder.Services.AddScoped<IFetchSaveUsersCommand, FetchSaveUsersCommand>();
@@ -49,7 +54,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    
+
     // Add CORS - only in development
     app.UseCors(policy =>
     {
