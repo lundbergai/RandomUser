@@ -24,7 +24,7 @@ public class DbController : ControllerBase
         return Ok(new { message = $"{addedCount} rows affected" });
     }
     
-    [HttpPost("ClearDatabase")]
+    [HttpDelete("ClearDatabase")]
     public async Task<ActionResult> ClearDatabase()
     {
         var deletedCount = await _clearDb.ExecuteAsync();
