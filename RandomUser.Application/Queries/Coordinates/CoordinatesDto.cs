@@ -1,6 +1,6 @@
 namespace RandomUser.Application.Queries.Coordinates;
 
-public class CoordinateDto
+public class CoordinatesDto
 {
     public string Latitude { get; set; }
     public string Longitude { get; set; }

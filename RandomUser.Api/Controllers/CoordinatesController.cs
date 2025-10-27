@@ -15,7 +15,7 @@ public class CoordinatesController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<List<CoordinateDto>>> GetLocations()
+    public async Task<ActionResult<List<CoordinatesDto>>> GetLocations()
     {
         var coordinates = await _query.ExecuteAsync();
         return Ok(coordinates);
