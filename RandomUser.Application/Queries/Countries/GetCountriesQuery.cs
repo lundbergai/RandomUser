@@ -26,4 +26,9 @@ public class GetCountriesQuery
             .OrderByDescending(c => c.UserCount)
             .ToList();
     }
+
+    public async Task<List<CountryDto>> ExecuteAsyncLocationsSet()
+    {
+        return await _repository.GetCountriesByLocationsAsync();
+    }
 }

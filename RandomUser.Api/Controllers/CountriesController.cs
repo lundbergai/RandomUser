@@ -14,10 +14,18 @@ public class CountriesController : ControllerBase
         _query = query;
     }
 
-    [HttpGet]
+    [HttpGet("UsersSet")]
     public async Task<ActionResult<List<CountryDto>>> GetCountries()
     {
         var countries = await _query.ExecuteAsync();
+        
+        return Ok(countries);
+    }
+    
+    [HttpGet("CountriesSet")]
+    public async Task<ActionResult<List<CountryDto>>> GetCountriesLocationSet()
+    {
+        var countries = await _query.ExecuteAsyncLocationsSet();
         
         return Ok(countries);
     }
