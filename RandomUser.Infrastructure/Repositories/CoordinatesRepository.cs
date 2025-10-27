@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Interfaces;
-using RandomUser.Application.Queries.Coordinates;
+using RandomUser.Domain.Entities;
 
 namespace RandomUser.Infrastructure.Repositories;
 
@@ -13,17 +13,8 @@ public class CoordinatesRepository : ICoordinatesRepository
         _context = context;
     }
     
-    public async Task<List<CoordinateDto>> GetCoordinatesAsync()
+    public async Task<List<Coordinates>> GetCoordinatesAsync()
     {
-        return await _context.Coordinates
-            .Select(c => new CoordinateDto
-            {
-                Latitude = c.Latitude,
-                Longitude = c.Longitude,
-                Hemisphere = (c.Latitude.StartsWith("-") ? "South" : "North") +
-                             (c.Longitude.StartsWith("-") ? "West" : "East")
-            })
-            .OrderBy(c => c.Hemisphere)
-            .ToListAsync();
+        return await _context.Coordinates.ToListAsync();
     }
 }

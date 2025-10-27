@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Interfaces;
-using RandomUser.Application.Queries.TimeZones;
+using TimeZone = RandomUser.Domain.Entities.TimeZone;
 
 namespace RandomUser.Infrastructure.Repositories;
 
@@ -13,22 +13,8 @@ public class TimeZonesRepository : ITimeZonesRepository
         _context = context;
     }
 
-    public async Task<TimeZoneDto> GetTimeZoneStatsAsync()
+    public async Task<List<TimeZone>> GetTimeZonesAsync()
     {
-        var timeZoneStats = await _context.TimeZones
-            .GroupBy(t => new { t.Offset, t.Description })
-            .Select(g => new TimeZoneStats
-            {
-                Offset = g.Key.Offset,
-                Description = g.Key.Description,
-                UserCount = g.Count()
-            })
-            .OrderByDescending(t => t.UserCount)
-            .ToListAsync();
-
-        return new TimeZoneDto
-        {
-            TimeZones = timeZoneStats
-        };
+        return await _context.TimeZones.ToListAsync();
     }
 }

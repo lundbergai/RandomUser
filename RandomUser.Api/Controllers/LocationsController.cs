@@ -17,25 +17,17 @@ public class LocationsController : ControllerBase
         _getLocationsQuery = getLocationsQuery;
         _getLocationsWithStreetQuery = getLocationsWithStreetQuery;
     }
-
+    
     [HttpGet]
-    public async Task<ActionResult<List<LocationWithStreetDto>>> GetLocations()
+    public async Task<IActionResult> GetLocations([FromQuery] bool includeStreet = false)
     {
+        if (includeStreet)
+        {
+            var locationsWithStreet = await _getLocationsWithStreetQuery.ExecuteAsync();
+            return Ok(locationsWithStreet); // Returns List<LocationWithStreetDto>
+        }
+
         var locations = await _getLocationsQuery.ExecuteAsync();
-        return Ok(locations);
-    }
-    
-    [HttpGet("WithStreetEfficient")]
-    public async Task<ActionResult<List<LocationWithStreetDto>>> GetLocationsEfficient()
-    {
-        var locations = await _getLocationsWithStreetQuery.ExecuteEfficientAsync();
-        return Ok(locations);
-    }
-    
-    [HttpGet("WithStreetInefficient")]
-    public async Task<ActionResult<List<LocationWithStreetDto>>> GetLocationsInefficient()
-    {
-        var locations = await _getLocationsWithStreetQuery.ExecuteInefficientAsync();
-        return Ok(locations);
+        return Ok(locations); // Returns List<LocationDto>
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Interfaces;
-using RandomUser.Application.Queries.Users;
+using RandomUser.Domain.Entities;
 
 namespace RandomUser.Infrastructure.Repositories;
 
@@ -13,7 +13,7 @@ public class UsersRepository : IUsersRepository
         _context = context;
     }
 
-    public async Task<List<UserDto>> GetAllUsersAsync()
+    public async Task<List<User>> GetAllUsersAsync()
     {
         return await _context.Users
             .Include(u => u.Name)
@@ -23,29 +23,10 @@ public class UsersRepository : IUsersRepository
                 .ThenInclude(l => l.Coordinates)
             .Include(u => u.Location)
                 .ThenInclude(l => l.TimeZone)
-            .Select(u => new UserDto
-            {
-                Id = u.Id,
-                Title = u.Name.Title,
-                FirstName = u.Name.First,
-                LastName = u.Name.Last,
-                FullName = u.Name.First + " " + u.Name.Last,
-                Phone = u.Phone,
-                Country = u.Location.Country,
-                State = u.Location.State,
-                City = u.Location.City,
-                Postcode = u.Location.Postcode,
-                StreetNumber = u.Location.Street.Number,
-                StreetName = u.Location.Street.Name,
-                Latitude = u.Location.Coordinates.Latitude,
-                Longitude = u.Location.Coordinates.Longitude,
-                TimeZoneOffset = u.Location.TimeZone.Offset,
-                TimeZoneDescription = u.Location.TimeZone.Description
-            })
             .ToListAsync();
     }
 
-    public async Task<List<UserDto>> SearchUsersByNameAsync(string searchTerm)
+    public async Task<List<User>> SearchUsersByNameAsync(string searchTerm)
     {
         var lowerSearchTerm = searchTerm.ToLower();
         
@@ -61,25 +42,6 @@ public class UsersRepository : IUsersRepository
                 u.Name.First.ToLower().Contains(lowerSearchTerm) ||
                 u.Name.Last.ToLower().Contains(lowerSearchTerm) ||
                 (u.Name.First + " " + u.Name.Last).ToLower().Contains(lowerSearchTerm))
-            .Select(u => new UserDto
-            {
-                Id = u.Id,
-                Title = u.Name.Title,
-                FirstName = u.Name.First,
-                LastName = u.Name.Last,
-                FullName = u.Name.First + " " + u.Name.Last,
-                Phone = u.Phone,
-                Country = u.Location.Country,
-                State = u.Location.State,
-                City = u.Location.City,
-                Postcode = u.Location.Postcode,
-                StreetNumber = u.Location.Street.Number,
-                StreetName = u.Location.Street.Name,
-                Latitude = u.Location.Coordinates.Latitude,
-                Longitude = u.Location.Coordinates.Longitude,
-                TimeZoneOffset = u.Location.TimeZone.Offset,
-                TimeZoneDescription = u.Location.TimeZone.Description
-            })
             .ToListAsync();
     }
 }

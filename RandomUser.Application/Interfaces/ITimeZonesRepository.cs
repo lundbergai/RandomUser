@@ -1,8 +1,8 @@
-using RandomUser.Application.Queries.TimeZones;
+using TimeZone = RandomUser.Domain.Entities.TimeZone;
 
 namespace RandomUser.Application.Interfaces;
 
 public interface ITimeZonesRepository
 {
-    Task<TimeZoneDto> GetTimeZoneStatsAsync();
+    Task<List<TimeZone>> GetTimeZonesAsync();
 }

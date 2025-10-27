@@ -1,10 +1,9 @@
-using RandomUser.Application.Queries.Locations;
+using RandomUser.Domain.Entities;
 
 namespace RandomUser.Application.Interfaces;
 
 public interface ILocationsRepository
 {
-    Task<List<LocationDto>> GetLocationsAsync();
-    Task<List<LocationWithStreetDto>> GetLocationsWithStreetEfficientAsync(); 
-    Task<List<LocationWithStreetDto>> GetLocationsWithStreetInefficientAsync();
+    Task<List<Location>> GetLocationsAsync();
+    Task<List<Location>> GetLocationsWithStreetAsync();
 }

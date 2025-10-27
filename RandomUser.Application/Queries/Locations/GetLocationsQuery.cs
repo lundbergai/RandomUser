@@ -13,6 +13,18 @@ public class GetLocationsQuery
 
     public async Task<List<LocationDto>> ExecuteAsync()
     {
-        return await _repository.GetLocationsAsync();
+        var locations = await _repository.GetLocationsAsync();
+        
+        return locations
+            .GroupBy(l => new { l.Country, l.State, l.City })
+            .Select(g => new LocationDto
+            {
+                Country = g.Key.Country,
+                State = g.Key.State,
+                City = g.Key.City,
+                UserCount = g.Count()
+            })
+            .OrderByDescending(l => l.Country)
+            .ToList();
     }
 }

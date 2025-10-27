@@ -1,9 +1,9 @@
-﻿﻿using RandomUser.Application.Queries.Users;
+﻿using RandomUser.Domain.Entities;
 
 namespace RandomUser.Application.Interfaces;
 
 public interface IUsersRepository
 {
-    Task<List<UserDto>> GetAllUsersAsync();
-    Task<List<UserDto>> SearchUsersByNameAsync(string searchTerm);
+    Task<List<User>> GetAllUsersAsync();
+    Task<List<User>> SearchUsersByNameAsync(string searchTerm);
 }

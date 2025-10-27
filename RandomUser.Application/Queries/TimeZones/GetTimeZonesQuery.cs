@@ -13,6 +13,22 @@ public class GetTimeZonesQuery
 
     public async Task<TimeZoneDto> ExecuteAsync()
     {
-        return await _repository.GetTimeZoneStatsAsync();
+        var timeZones = await _repository.GetTimeZonesAsync();
+        
+        var timeZoneStats = timeZones
+            .GroupBy(t => new { t.Offset, t.Description })
+            .Select(g => new TimeZoneStats
+            {
+                Offset = g.Key.Offset,
+                Description = g.Key.Description,
+                UserCount = g.Count()
+            })
+            .OrderByDescending(t => t.UserCount)
+            .ToList();
+
+        return new TimeZoneDto
+        {
+            TimeZones = timeZoneStats
+        };
     }
 }

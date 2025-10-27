@@ -1,8 +1,8 @@
-using RandomUser.Application.Queries.Coordinates;
+using RandomUser.Domain.Entities;
 
 namespace RandomUser.Application.Interfaces;
 
 public interface ICoordinatesRepository
 {
-    Task<List<CoordinateDto>> GetCoordinatesAsync();
+    Task<List<Coordinates>> GetCoordinatesAsync();
 }
