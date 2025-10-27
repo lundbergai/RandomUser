@@ -15,16 +15,4 @@ public class GetLocationsQuery
     {
         return await _repository.GetLocationsAsync();
     }
-
-    public async Task<List<LocationWithStreetDto>> ExecuteEfficientAsync()
-    {
-        return await _repository.GetLocationsWithStreetEfficientAsync();
-    }
-
-    public async Task<List<LocationWithStreetDto>> ExecuteInefficientAsync()
-    {
-        return await _repository.GetLocationsWithStreetInefficientAsync();
-    }
-    
-    
 }

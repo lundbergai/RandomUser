@@ -35,6 +35,7 @@ builder.Services.AddScoped<ClearDbCommand>();
 // Queries
 builder.Services.AddScoped<GetCountriesQuery>();
 builder.Services.AddScoped<GetLocationsQuery>();
+builder.Services.AddScoped<GetLocationsWithStreetQuery>();
 builder.Services.AddScoped<GetCoordinatesQuery>();
 builder.Services.AddScoped<GetTimeZonesQuery>();
 
