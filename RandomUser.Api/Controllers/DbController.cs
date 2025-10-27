@@ -16,7 +16,7 @@ public class DbController : ControllerBase
         _clearDb = clearDb;
     }
 
-    [HttpPost("fetch")]
+    [HttpPost("FetchUsers")]
     public async Task<ActionResult> FetchUsers([FromQuery] int count = 50)
     {
         var addedCount = await _fetchSaveUsers.ExecuteAsync(count);
@@ -24,7 +24,7 @@ public class DbController : ControllerBase
         return Ok(new { message = $"{addedCount} rows affected" });
     }
     
-    [HttpPost("clear")]
+    [HttpPost("ClearDatabase")]
     public async Task<ActionResult> ClearDatabase()
     {
         var deletedCount = await _clearDb.ExecuteAsync();
