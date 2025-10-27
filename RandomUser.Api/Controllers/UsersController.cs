@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RandomUser.Application.Queries.Users;
 using RandomUser.Domain.Entities;
 using RandomUser.Infrastructure.Persistence;
 
@@ -9,26 +10,19 @@ namespace RandomUser.Api.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly RandomUserDbContext _context;
+        private readonly GetUsersQuery _query;
 
-        public UsersController(RandomUserDbContext context)
+        public UsersController(GetUsersQuery query)
         {
-            _context = context;
+            _query = query;
         }
         
-        // GET: api/users
+        // GET: api/users?search=john
         [HttpGet]
-        public async Task<ActionResult<List<User>>> GetUsers()
+        public async Task<ActionResult<List<UserDto>>> GetUsers([FromQuery] string? search = null)
         {
-            return await _context.Users
-                .Include(u => u.Name)
-                .Include(u => u.Location)
-                .ThenInclude(l => l.Street)
-                .Include(u => u.Location)
-                .ThenInclude(l => l.Coordinates)
-                .Include(u => u.Location)
-                .ThenInclude(l => l.TimeZone)
-                .ToListAsync();
+            var users = await _query.ExecuteAsync(search);
+            return Ok(users);
         }
     }
 }

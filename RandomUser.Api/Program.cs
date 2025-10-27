@@ -5,6 +5,7 @@ using RandomUser.Application.Queries.Coordinates;
 using RandomUser.Application.Queries.Countries;
 using RandomUser.Application.Queries.Locations;
 using RandomUser.Application.Queries.TimeZones;
+using RandomUser.Application.Queries.Users;
 using RandomUser.Infrastructure.Persistence;
 using RandomUser.Infrastructure.Services;
 using RandomUser.Infrastructure.Repositories;
@@ -27,6 +28,7 @@ builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 builder.Services.AddScoped<ILocationsRepository, LocationsRepository>();
 builder.Services.AddScoped<ICoordinatesRepository, CoordinatesRepository>();
 builder.Services.AddScoped<ITimeZonesRepository, TimeZonesRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 // Commands
 builder.Services.AddScoped<FetchSaveUsersCommand>();
@@ -38,6 +40,7 @@ builder.Services.AddScoped<GetLocationsQuery>();
 builder.Services.AddScoped<GetLocationsWithStreetQuery>();
 builder.Services.AddScoped<GetCoordinatesQuery>();
 builder.Services.AddScoped<GetTimeZonesQuery>();
+builder.Services.AddScoped<GetUsersQuery>();
 
 // Other Services
 builder.Services.AddScoped<IRandomUserApiService, RandomUserApiService>();
