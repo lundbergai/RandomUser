@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RandomUser.Domain.Repositories;
+﻿using RandomUser.Application.Interfaces;
 
 namespace RandomUser.Application.Queries.Countries;
 
-public class GetCountriesQuery : IGetCountriesQuery
+public class GetCountriesQuery
 {
     private readonly ICountriesRepository _repository;
 
@@ -14,7 +13,9 @@ public class GetCountriesQuery : IGetCountriesQuery
 
     public async Task<List<CountryDto>> ExecuteAsync()
     {
-        return await _repository.GetUsersWithLocations()
+        var users = await _repository.GetAllUsersAsync();
+
+        return users
             .Where(u => u.Location != null)
             .GroupBy(u => u.Location.Country)
             .Select(g => new CountryDto
@@ -23,6 +24,6 @@ public class GetCountriesQuery : IGetCountriesQuery
                 UserCount = g.Count()
             })
             .OrderByDescending(c => c.UserCount)
-            .ToListAsync();
+            .ToList();
     }
 }

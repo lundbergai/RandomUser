@@ -7,9 +7,9 @@ namespace RandomUser.Api.Controllers;
 [Route("api/[controller]")]
 public class CountriesController : ControllerBase
 {
-    private readonly IGetCountriesQuery _query;
+    private readonly GetCountriesQuery _query;
 
-    public CountriesController(IGetCountriesQuery query)
+    public CountriesController(GetCountriesQuery query)
     {
         _query = query;
     }

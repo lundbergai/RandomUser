@@ -1,6 +1,6 @@
 ﻿using RandomUser.Domain.Entities;
 
-namespace RandomUser.Infrastructure.Services;
+namespace RandomUser.Application.Interfaces;
 
 public interface IRandomUserApiService
 {

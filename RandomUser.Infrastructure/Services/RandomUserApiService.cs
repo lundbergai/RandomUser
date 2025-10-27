@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using RandomUser.Application.Interfaces;
 using RandomUser.Domain.Entities;
 using RandomUser.Infrastructure.Seed;
 

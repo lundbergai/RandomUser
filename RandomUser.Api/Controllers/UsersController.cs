@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RandomUser.Domain.Entities;
-using RandomUser.Infrastructure;
+using RandomUser.Infrastructure.Persistence;
 
 namespace RandomUser.Api.Controllers
 {
@@ -30,6 +30,5 @@ namespace RandomUser.Api.Controllers
                 .ThenInclude(l => l.TimeZone)
                 .ToListAsync();
         }
-        
     }
 }

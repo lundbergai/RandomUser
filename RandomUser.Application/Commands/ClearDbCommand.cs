@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RandomUser.Infrastructure.Persistence;
+using RandomUser.Application.Interfaces;
 
 namespace RandomUser.Application.Commands;
 
-public class ClearDbCommand : IClearDbCommand
+public class ClearDbCommand
 {
     private readonly IRandomUserDbContext _dbContext;
     

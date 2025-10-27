@@ -1,9 +1,8 @@
-﻿using RandomUser.Infrastructure.Persistence;
-using RandomUser.Infrastructure.Services;
+﻿using RandomUser.Application.Interfaces;
 
 namespace RandomUser.Application.Commands;
 
-public class FetchSaveUsersCommand : IFetchSaveUsersCommand
+public class FetchSaveUsersCommand
 {
     private readonly IRandomUserApiService _apiService;
     private readonly IRandomUserDbContext _dbContext;

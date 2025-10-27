@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Commands;
+using RandomUser.Application.Interfaces;
 using RandomUser.Application.Queries.Countries;
-using RandomUser.Domain.Repositories;
 using RandomUser.Infrastructure.Persistence;
-using RandomUser.Infrastructure;
 using RandomUser.Infrastructure.Services;
 using RandomUser.Infrastructure.Repositories;
 using RandomUser.Infrastructure.Seed;
@@ -24,11 +23,11 @@ builder.Services.AddScoped<IRandomUserDbContext>(provider =>
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 
 // Commands
-builder.Services.AddScoped<IFetchSaveUsersCommand, FetchSaveUsersCommand>();
-builder.Services.AddScoped<IClearDbCommand, ClearDbCommand>();
+builder.Services.AddScoped<FetchSaveUsersCommand>();
+builder.Services.AddScoped<ClearDbCommand>();
 
 // Queries
-builder.Services.AddScoped<IGetCountriesQuery, GetCountriesQuery>();
+builder.Services.AddScoped<GetCountriesQuery>();
 
 // Other Services
 builder.Services.AddScoped<IRandomUserApiService, RandomUserApiService>();

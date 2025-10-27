@@ -7,10 +7,10 @@ namespace RandomUser.Api.Controllers;
 [Route("api/[controller]")]
 public class DbController : ControllerBase
 {
-    private readonly IFetchSaveUsersCommand _fetchSaveUsers;
-    private readonly IClearDbCommand _clearDb;
+    private readonly FetchSaveUsersCommand _fetchSaveUsers;
+    private readonly ClearDbCommand _clearDb;
 
-    public DbController(IFetchSaveUsersCommand fetchSaveUsers, IClearDbCommand clearDb)
+    public DbController(FetchSaveUsersCommand fetchSaveUsers, ClearDbCommand clearDb)
     {
         _fetchSaveUsers = fetchSaveUsers;
         _clearDb = clearDb;

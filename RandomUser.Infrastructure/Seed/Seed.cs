@@ -1,8 +1,8 @@
 using System.Text.Json;
-using Microsoft.EntityFrameworkCore;
 using RandomUser.Domain.Entities;
 using System.Reflection;
-using RandomUser.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using RandomUser.Application.Interfaces;
 
 namespace RandomUser.Infrastructure.Seed;
 

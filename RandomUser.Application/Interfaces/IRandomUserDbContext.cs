@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RandomUser.Domain.Entities;
+using TimeZone = RandomUser.Domain.Entities.TimeZone;
 
-namespace RandomUser.Infrastructure.Persistence;
+namespace RandomUser.Application.Interfaces;
 
 public interface IRandomUserDbContext
 {

@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using RandomUser.Application.Interfaces;
 using RandomUser.Domain.Entities;
-using RandomUser.Domain.Repositories;
-using RandomUser.Infrastructure.Persistence;
+
 
 namespace RandomUser.Infrastructure.Repositories;
 
@@ -13,8 +14,10 @@ public class CountriesRepository : ICountriesRepository
 		_context = context;
 	}
 
-	public IQueryable<User> GetUsersWithLocations()
+	public async Task<List<User>> GetAllUsersAsync()
 	{
-		return _context.Users;
+		return await _context.Users
+			.Include(u => u.Location)
+			.ToListAsync();
 	}
 }
