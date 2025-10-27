@@ -4,6 +4,7 @@ using RandomUser.Application.Interfaces;
 using RandomUser.Application.Queries.Coordinates;
 using RandomUser.Application.Queries.Countries;
 using RandomUser.Application.Queries.Locations;
+using RandomUser.Application.Queries.TimeZones;
 using RandomUser.Infrastructure.Persistence;
 using RandomUser.Infrastructure.Services;
 using RandomUser.Infrastructure.Repositories;
@@ -25,6 +26,7 @@ builder.Services.AddScoped<IRandomUserDbContext>(provider =>
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 builder.Services.AddScoped<ILocationsRepository, LocationsRepository>();
 builder.Services.AddScoped<ICoordinatesRepository, CoordinatesRepository>();
+builder.Services.AddScoped<ITimeZonesRepository, TimeZonesRepository>();
 
 // Commands
 builder.Services.AddScoped<FetchSaveUsersCommand>();
@@ -34,6 +36,7 @@ builder.Services.AddScoped<ClearDbCommand>();
 builder.Services.AddScoped<GetCountriesQuery>();
 builder.Services.AddScoped<GetLocationsQuery>();
 builder.Services.AddScoped<GetCoordinatesQuery>();
+builder.Services.AddScoped<GetTimeZonesQuery>();
 
 // Other Services
 builder.Services.AddScoped<IRandomUserApiService, RandomUserApiService>();
