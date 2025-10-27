@@ -12,4 +12,9 @@ public class RandomUserDbContext : DbContext, IRandomUserDbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Name> Names { get; set; }
+    public DbSet<Location> Locations { get; set; }
+    public DbSet<Street> Streets { get; set; }
+    public DbSet<Coordinates> Coordinates { get; set; }
+    public DbSet<TimeZone> TimeZones { get; set; }
 }
