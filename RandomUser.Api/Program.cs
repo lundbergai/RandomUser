@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RandomUser.Application.Commands;
 using RandomUser.Application.Interfaces;
+using RandomUser.Application.Queries.Coordinates;
 using RandomUser.Application.Queries.Countries;
 using RandomUser.Application.Queries.Locations;
 using RandomUser.Infrastructure.Persistence;
@@ -23,6 +24,7 @@ builder.Services.AddScoped<IRandomUserDbContext>(provider =>
 // Repositories
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 builder.Services.AddScoped<ILocationsRepository, LocationsRepository>();
+builder.Services.AddScoped<ICoordinatesRepository, CoordinatesRepository>();
 
 // Commands
 builder.Services.AddScoped<FetchSaveUsersCommand>();
@@ -31,6 +33,7 @@ builder.Services.AddScoped<ClearDbCommand>();
 // Queries
 builder.Services.AddScoped<GetCountriesQuery>();
 builder.Services.AddScoped<GetLocationsQuery>();
+builder.Services.AddScoped<GetCoordinatesQuery>();
 
 // Other Services
 builder.Services.AddScoped<IRandomUserApiService, RandomUserApiService>();
