@@ -14,6 +14,8 @@ public class CoordinatesController : ControllerBase
         _query = query;
     }
     
+    // todo: move mapping to controllers?
+    
     [HttpGet]
     public async Task<ActionResult<List<CoordinatesDto>>> GetLocations()
     {
