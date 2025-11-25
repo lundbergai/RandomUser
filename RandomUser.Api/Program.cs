@@ -57,8 +57,22 @@ var app = builder.Build();
 // Initialize database and seed data
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<RandomUserDbContext>();
-    await Seed.SeedDataAsync(dbContext);
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<RandomUserDbContext>();
+        
+        // Apply migrations (creates database if it doesn't exist)
+        await context.Database.MigrateAsync();
+        
+        // Seed data
+        await Seed.SeedDataAsync(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred migrating the database.");
+    }
 }
 
 // Configure the HTTP request pipeline
