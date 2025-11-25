@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿﻿using Microsoft.EntityFrameworkCore;
 using RandomUser.Domain.Entities;
 using TimeZone = RandomUser.Domain.Entities.TimeZone;
 

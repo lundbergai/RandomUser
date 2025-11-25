@@ -16,9 +16,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllers();
 
-// Context
+// Simple connection string for Docker MSSQL
+var connectionString = "Server=localhost,1433;Database=RandomUserDb;User Id=sa;Password=Passw0rd@123;Encrypt=false;TrustServerCertificate=true;";
+
 builder.Services.AddDbContext<RandomUserDbContext>(options =>
-    options.UseSqlite("Data Source=randomuser.db"));
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IRandomUserDbContext>(provider =>
     provider.GetRequiredService<RandomUserDbContext>());
@@ -52,12 +54,10 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Seed data from JSON file
+// Initialize database and seed data
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<RandomUserDbContext>();
-    await dbContext.Database.EnsureDeletedAsync();
-    await dbContext.Database.EnsureCreatedAsync();
     await Seed.SeedDataAsync(dbContext);
 }
 
