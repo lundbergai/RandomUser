@@ -16,8 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllers();
 
-// Simple connection string for Docker MSSQL
-var connectionString = "Server=localhost,1433;Database=RandomUserDb;User Id=sa;Password=Passw0rd@123;Encrypt=false;TrustServerCertificate=true;";
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<RandomUserDbContext>(options =>
     options.UseSqlServer(connectionString));
