@@ -16,9 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllers();
 
-// Context
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<RandomUserDbContext>(options =>
-    options.UseSqlite("Data Source=randomuser.db"));
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IRandomUserDbContext>(provider =>
     provider.GetRequiredService<RandomUserDbContext>());
@@ -52,13 +53,25 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Seed data from JSON file
+// Initialize database and seed data
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<RandomUserDbContext>();
-    await dbContext.Database.EnsureDeletedAsync();
-    await dbContext.Database.EnsureCreatedAsync();
-    await Seed.SeedDataAsync(dbContext);
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<RandomUserDbContext>();
+        
+        // Apply migrations (creates database if it doesn't exist)
+        await context.Database.MigrateAsync();
+        
+        // Seed data
+        await Seed.SeedDataAsync(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred migrating the database.");
+    }
 }
 
 // Configure the HTTP request pipeline

@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+    mssql:
+        image: mcr.microsoft.com/azure-sql-edge
+        container_name: randomuser-mssql
+        environment:
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "Passw0rd@123!HelLO"
+        ports:
+            - "1433:1433"
