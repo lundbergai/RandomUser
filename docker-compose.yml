@@ -5,24 +5,7 @@ services:
         image: mcr.microsoft.com/azure-sql-edge
         container_name: randomuser-mssql
         environment:
-            ACCEPT_EULA: "1"
-            MSSQL_SA_PASSWORD: "Passw0rd@123"
-            MSSQL_PID: "Developer"
-            MSSQL_USER: "SA"
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "Passw0rd@123!HelLO"
         ports:
             - "1433:1433"
-        volumes:
-            - mssql_data:/var/opt/mssql
-        healthcheck:
-            test:
-                [
-                    "CMD-SHELL",
-                    "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Passw0rd@123' -Q 'SELECT 1' || exit 1"
-                ]
-            interval: 10s
-            timeout: 5s
-            retries: 5
-            start_period: 30s
-
-volumes:
-    mssql_data:
